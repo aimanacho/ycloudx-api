@@ -1,0 +1,121 @@
+openapi: 3.0.3
+info:
+  title: yCloudx - OpenAPI 1.0
+  description: |-
+    This document defines the requirements for implementation of the integration between Cyberview RDM System and yCloudx
+    
+    Some useful links:
+    - [yCloudx](https://ycloudx.com)
+    - [Lestari Global](https://lestariglob.com)
+  version: 1.0.0
+servers:
+  - url: https://dev-sirim.ycloudx.com/api (Staging)
+  - url: https://myasset.sirim.my/api (Production)
+tags:
+  - name: Post Work Order Request
+  - name: Update Work Order Request
+    # description: Everything about your Pets
+    # externalDocs:
+    #   description: Find out more
+    #   url: http://swagger.io
+paths:
+  /insert_data/vendor:
+    post:
+      tags:
+        - Post Work Order Request
+      summary: Insert work order
+      description: Staging - $5$1277ad5d4e2b8515$1AVL2bH5Drh8uuCUA7ODI5cdnEhV8uerJDPrkojRW54 Production - $5$d873a39206b98d9f$q0QYm7lh4Lktj5qE973YWsyGnuzER1qzaTzJqJfJIYB 
+      # parameters:
+      # - name: accesskey
+      #   in: query
+      #   description: The asset to be updated
+      #   required: true
+      #   schema:
+      #     type: string
+      #     example: Machine
+      requestBody:
+        description: Add work order
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkOrder'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkOrder'          
+        '400':
+          description: Invalid request format or missing parameters
+        '401': 
+          description: Authentication failed
+        '500':
+          description: An unexpected error occured.
+  /update_data/vendor:
+    post:
+      tags:
+        - Update Work Order Request
+      summary: Update work order
+      description: Staging - $5$1277ad5d4e2b8515$1AVL2bH5Drh8uuCUA7ODI5cdnEhV8uerJDPrkojRW54 Production - $5$d873a39206b98d9f$q0QYm7lh4Lktj5qE973YWsyGnuzER1qzaTzJqJfJIYB 
+      requestBody:
+        description: Update work order
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkOrder'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkOrder'          
+        '400':
+          description: Invalid request format or missing parameters
+        '401': 
+          description: Authentication failed
+        '500':
+          description: An unexpected error occured.
+components:
+  schemas:
+    WorkOrder:
+      required:
+        - accesskey
+        - reported_by
+        - system_site
+        - location
+        - breakdown_date
+        - description
+      type: object
+      properties:
+        accesskey:
+          type: string
+          example: 8276ya2h13g2%dj@ush3#91ofuasd0281
+        reported_by:
+          type: string
+          example: Ali
+        system_site:
+          type: string
+          example: yCloudx
+        location:
+          type: string
+          example: Kuala Lumpur
+        section:
+          type: string
+          example: Room 12
+        asset:
+          type: string
+          example: Machine
+        breakdown_date:
+          type: string
+          format: date
+          example: 2024-12-12
+        description:
+          type: string
+          example: Testing
+        workorder_type:
+          type: string
+          example: Daily
